@@ -1,10 +1,24 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Container, Row, Table } from 'react-bootstrap'
+import { Link } from 'react-router-dom';
 import MemberComponent from "./MemberComponent"
 
-const MemberList = ({ dataMember }) => {
+const MemberList = () => {    
+    const [ members, setMember ] = useState([
+        {
+            id : 1,
+            firstname : 'Inez',
+            lastname : 'Amanda',
+            email : 'inezyamanda@gmail.com',
+            username : 'inezyamanda',
+            password : 'helloworld'
+        }
+    ]);
+
     return (
-        <Container>
+        <>
+            <h3>Member Page</h3>
+            <Link to="/members/add" className="btn btn-sm btn-success mb-3 text-uppercase">Add Member</Link>
             <Table>
                 <thead>
                     <tr>
@@ -16,7 +30,7 @@ const MemberList = ({ dataMember }) => {
                 </thead>
                 <tbody>
                     {
-                        dataMember.map((member) => (
+                        members.map((member) => (
                             <MemberComponent
                                 key={member.id}
                                 firstname={member.firstname}
@@ -26,9 +40,12 @@ const MemberList = ({ dataMember }) => {
                             />
                         ))
                     }
+                    {
+                        members && !members.length && <h4>No member display</h4>
+                    }
                 </tbody>
             </Table>
-        </Container>
+        </>  
     )
 }
 

@@ -8,55 +8,20 @@ import BookList from "./components/book/BookList";
 import CounterComponent from "./components/counter/CounterComponent";
 import Counter from "./components/counter/hooks/Counter";
 import Member from "./components/member/Member";
+import Home from "./pages/Home";
+import Navigation from "./pages/template/Navigation";
+import Footer from "./pages/template/Footer";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import BookForm from "./components/book/BookForm";
+import MemberList from "./components/member/MemberList";
+import MemberForm from "./components/member/MemberForm";
+import Routing from "./pages/template/Routing";
 
 // Functional
 function App() {
 
-  // variable ES6 (let dan const)
-  // let -> mutable
-  // const -> immutable
-
-  // array
-  // const fruits = ['Mango', 100, true, 'Banana'];
-  // const print = fruits.forEach(fruit => {
-  //   return fruit; // tidak mengembalikan nilai -> undefined
-  // });
-
-  // console.log(print);
-
-  // // array of object
-  // const students = [
-  //   {
-  //     id: 1,
-  //     name: 'Jonar',
-  //     npm: '12345678',
-  //     sex: 'L'
-  //   },
-  //   {
-  //     id: 3,
-  //     name: 'Julia',
-  //     npm: '24135876',
-  //     sex: 'L'
-  //   }
-  // ];
-
-  // const printStudent = students.map(student => {
-  //   return student; // mengembalikan nilai -> map -> nyalin array yang asli ke array yang baru
-  // });
-
-  // console.log(printStudent);
-
   return (
-    <Container>
-      <Row>
-      {/* reusable component */}
-        {/* <BookList /> */}
-        {/* <CounterComponent /> */}
-        {/* <Counter /> */}
-        {/* <Book /> */}
-        <Member />
-      </Row>
-    </Container>
+    <Routing />
   );
 }
 
