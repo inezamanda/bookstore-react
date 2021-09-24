@@ -16,7 +16,7 @@ const BookComponent = ({bookId, title, description, path, price, purchaseAmount,
                         </Card.Text>
                         <div className="d-flex justify-content-between align-items-center">
                         <ButtonGroup aria-label="Basic Example">
-                            <Link to={`/${path}/${bookId}`} className="btn btn-sm btn-outline-secondary">Detail</Link>
+                            <Link to={`${path}/${bookId}`} className="btn btn-sm btn-outline-secondary">Detail</Link>
                             <Link to={`${path}/edit/${bookId}`} className="btn btn-sm btn-outline-warning">Update</Link>
                             {
                                 purchaseAmount > 0 || purchaseAmount === null ? 

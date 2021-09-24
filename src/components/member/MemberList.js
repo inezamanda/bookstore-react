@@ -3,17 +3,12 @@ import { Container, Row, Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import MemberComponent from "./MemberComponent"
 
-const MemberList = () => {    
-    const [ members, setMember ] = useState([
-        {
-            id : 1,
-            firstname : 'Inez',
-            lastname : 'Amanda',
-            email : 'inezyamanda@gmail.com',
-            username : 'inezyamanda',
-            password : 'helloworld'
-        }
-    ]);
+const MemberList = ({match}) => {    
+
+    const { path } = match
+    const [ members, setMember ] = useState([]);
+    
+
 
     return (
         <>
