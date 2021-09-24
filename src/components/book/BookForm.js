@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Form, Button, Col, Container, Row } from "react-bootstrap";
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { bookSchema } from '../../validations/validationSchema'
+import { createBook, getBookById, updateBook } from "../../api/BookService";
 
-const BookForm = () => {
+const BookForm = ({history, match}) => {
+
+  const {id} = match.params;
+  const isAddMode = !id;
+  const [book, setBook] = useState({})
+
 
   // object destructuring
   const { register, handleSubmit, reset, setValue, formState: { errors, isSubmitting } } = useForm({
@@ -12,8 +18,45 @@ const BookForm = () => {
   });
 
   const submitForm = (data) => {
-    console.log(data);
+    return isAddMode ? insert(data) : update(id, data)
   }
+
+  const insert = (payload) => {
+      console.log(payload);
+      return createBook(payload)
+      .then(response => {
+        history.push('.') // books/add
+      })
+  }
+
+  const update = (id, payload) => {
+      return updateBook(id, payload)
+      .then(response => {
+        history.push('..') //books/edit/${id}
+      })
+  }
+
+  useEffect(() => {
+    if(!isAddMode) {
+      getBookById(id)
+      .then((response) => {
+        let book = response.data;
+        const fields = [
+          'title',
+          'description',
+          'year',
+          'pages',
+          'language',
+          'publisher',
+          'price',
+          'purchaseAmount',
+          'stock'
+        ];
+        fields.forEach(field => setValue(field, book[field]));
+        setBook(book);
+      })
+    }
+  }, [])
 
   return (
       <Row>
@@ -29,7 +72,7 @@ const BookForm = () => {
                 {...register("title")} 
                 className={`form-control ${errors.title ? 'is-invalid' : ''}`}
                 />
-                <div className="invalid-feedback">{errors.tile?.message}</div>
+                <div className="invalid-feedback">{errors.title?.message}</div>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicDescription">
@@ -39,7 +82,7 @@ const BookForm = () => {
                 rows={3}
                 placeholder="Enter book description"
                 name="description"
-                {...register("title")} 
+                {...register("description")} 
                 className={`form-control ${errors.description ? 'is-invalid' : ''}`}
                 />
                 <div className="invalid-feedback">{errors.description?.message}</div>
@@ -48,11 +91,11 @@ const BookForm = () => {
             <Form.Group className="mb-3" controlId="formBasicYear">
               <Form.Label>Year</Form.Label>
               <Form.Control
-                type="text" 
+                type="number" 
                 placeholder="Enter publish year"
                 name="year"
-                {...register("title")} 
-                className={`form-control ${errors.title ? 'is-invalid' : ''}`}
+                {...register("year")} 
+                className={`form-control ${errors.year? 'is-invalid' : ''}`}
                 />
                 <div className="invalid-feedback">{errors.year?.message}</div>
             </Form.Group>
@@ -60,11 +103,11 @@ const BookForm = () => {
             <Form.Group className="mb-3" controlId="formBasicPages">
               <Form.Label>Pages</Form.Label>
               <Form.Control
-                type="text" 
+                type="number" 
                 placeholder="Enter book pages"
                 name="pages"
-                {...register("title")} 
-                className={`form-control ${errors.title ? 'is-invalid' : ''}`}
+                {...register("pages")} 
+                className={`form-control ${errors.pages ? 'is-invalid' : ''}`}
                 />
                 <div className="invalid-feedback">{errors.pages?.message}</div>
             </Form.Group>
@@ -75,8 +118,8 @@ const BookForm = () => {
                 type="text" 
                 placeholder="Enter book language"
                 name="language"
-                {...register("title")} 
-                className={`form-control ${errors.title ? 'is-invalid' : ''}`}
+                {...register("language")} 
+                className={`form-control ${errors.language ? 'is-invalid' : ''}`}
                 />
                 <div className="invalid-feedback">{errors.language?.message}</div>
             </Form.Group>
@@ -87,8 +130,8 @@ const BookForm = () => {
                 type="text" 
                 placeholder="Enter publisher"
                 name="publisher"
-                {...register("title")} 
-                className={`form-control ${errors.title ? 'is-invalid' : ''}`}
+                {...register("publisher")} 
+                className={`form-control ${errors.publisher ? 'is-invalid' : ''}`}
                 />
                 <div className="invalid-feedback">{errors.publisher?.message}</div>
             </Form.Group>
@@ -96,23 +139,35 @@ const BookForm = () => {
             <Form.Group className="mb-3" controlId="formBasicPrice">
               <Form.Label>Price</Form.Label>
               <Form.Control
-                type="text" 
-                placeholder="Enter book price"
+                type="number" 
+                placeholder="Rp-,"
                 name="price"
-                {...register("title")} 
-                className={`form-control ${errors.title ? 'is-invalid' : ''}`}
+                {...register("price")} 
+                className={`form-control ${errors.price ? 'is-invalid' : ''}`}
                 />
                 <div className="invalid-feedback">{errors.price?.message}</div>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicPurchaseAmount">
+              <Form.Label>Purchase Amount</Form.Label>
+              <Form.Control
+                type="number" 
+                placeholder="Rp-,"
+                name="purchaseAmount"
+                {...register("purchaseAmount")} 
+                className={`form-control ${errors.purchaseAmount ? 'is-invalid' : ''}`}
+                />
+                <div className="invalid-feedback">{errors.purchaseAmount?.message}</div>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicStock">
               <Form.Label>Stock</Form.Label>
               <Form.Control
-                type="text" 
+                type="number" 
                 placeholder="Enter book stock"
                 name="stock"
-                {...register("title")} 
-                className={`form-control ${errors.title ? 'is-invalid' : ''}`}
+                {...register("stock")} 
+                className={`form-control ${errors.stock ? 'is-invalid' : ''}`}
                 />
                 <div className="invalid-feedback">{errors.stock?.message}</div>
             </Form.Group>

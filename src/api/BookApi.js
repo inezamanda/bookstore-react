@@ -24,3 +24,5 @@ export const books = [
       image: 'https://cdn.gramedia.com/uploads/items/9786020498768_Mahir_Bahasa_.jpg'
     }
 ];
+
+export const tempImg= "https://newhorizon-department-of-computer-science-engineering.s3.ap-south-1.amazonaws.com/nhengineering/department-of-computer-science-engineering/wp-content/uploads/2020/01/13103907/default_image_01.png";

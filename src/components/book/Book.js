@@ -1,21 +1,21 @@
 import React, { useState } from 'react'
 import { Container, Row, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, Switch, Route } from 'react-router-dom';
+import BookDetail from './BookDetail';
 import BookForm from './BookForm';
 import BookList from './BookList';
 
-const Book = ({ match }) => {
+const Book = () => {
 
-    const {path} = match
+    // const {path} = this.props.
     return (
-        // <Container>
-        //     <Row className="mt-5">
-        //         <BookList dataBook = { getBook }/>
-        //     </Row>
-        // </Container>
-        <div>
-
-        </div>
+        // <Switch>
+        //     <Route exact path = {path} component={BookList}/>
+        //     <Route exact path = {`${path}/add`} component={BookForm}/>
+        //     <Route exact path = {`${path}/:id`} component={BookDetail}/>
+        // </Switch>
+        <>
+        </>
     )
 }
 

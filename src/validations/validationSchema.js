@@ -12,8 +12,7 @@ export const bookSchema = yup.object().shape({
     year: 
     yup.number()
         .required('Year is required')
-        .min(4, 'Year must be 4 digits of number')
-        .max(4, 'Year must be 4 digits of number'),
+        .min(4, 'Year must be 4 digits of number'),
     pages: 
     yup.number()
         .required('Page is required')
@@ -30,6 +29,10 @@ export const bookSchema = yup.object().shape({
     yup.number()
         .required('Price is required')
         .min(0, 'Price can not be 0'),
+    purchaseAmount:
+    yup.number()
+        .required('Purchase amount is required')
+        .min(0, 'Purchase amount can not be 0'),    
     stock: 
     yup.number()
         .required('Stock is required')
